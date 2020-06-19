@@ -17,3 +17,29 @@ spec: # RC
         - name: nginx-app
           image: nginx
   replicas: 2       
+
+=======================
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-rs
+  labels:
+    app: myapp
+    type: front-end
+spec: # RS
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec: # POD
+      containers: # Array or List
+        - name: nginx-app
+          image: nginx
+  replicas: 2
+  selector: # Difference between RC and RS
+    matchLabels: # matches with label on the POD
+        type: front-end
+
